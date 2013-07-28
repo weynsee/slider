@@ -53,6 +53,11 @@ GEM
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    factory_girl (4.2.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.2.1)
+      factory_girl (~> 4.2.0)
+      railties (>= 3.0.0)
     ffi (1.9.0)
     formatador (0.2.4)
     fssm (0.2.10)
@@ -166,6 +171,7 @@ DEPENDENCIES
   capybara
   coffee-rails (~> 4.0.0)
   compass-rails (~> 2.0.alpha.0)
+  factory_girl_rails
   guard-rspec
   jquery-rails
   rails (= 4.0.0)
