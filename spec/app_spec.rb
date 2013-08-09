@@ -19,5 +19,12 @@ describe 'Slider' do
     expect(Slide.count).to eq(total_records)
   end
 
+  it 'renders the appropriate slide' do
+    slide = Slide.create(path: path)
+    permalink = Bijective.encode slide.id
+    get "/p/#{permalink}"
+    expect(last_response).to be_ok
+  end
+
   after { Slide.destroy }
 end
