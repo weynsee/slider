@@ -10,11 +10,17 @@ DataMapper.setup(:default, "sqlite3::memory:")
 class Slide
   include DataMapper::Resource
   property  :id,          Serial
-  property  :path,        String, length: 255
+  property  :path,        String, length: 2096, unique_index: true, required: true
   property  :created_at,  DateTime
 end
 DataMapper.finalize.auto_upgrade!
 
-get '/' do
-  "Hello World"
+get '/p/:permalink' do
+  @slide = Slide.get(Bijective.decode(params[:permalink]))
+end
+
+get '*' do
+  path = params[:splat].first
+  slide = Slide.first_or_create(path: path)
+  redirect to("/p/#{Bijective.encode(slide.id)}")
 end
