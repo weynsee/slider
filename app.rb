@@ -41,16 +41,18 @@ get '*' do
   redirect to("/p/#{slide.permalink}")
 end
 
+helpers do
+  def title
+    @panels.join(' ')
+  end
+end
+
 __END__
 
 @@ show
 doctype html
 html lang="en"
   head
-  meta charset="utf-8"
-    title= "Title"
-    meta name="description" content=""
-    meta name="author" content=""
-    meta name="viewport" content="width=device-width"
+    meta charset="utf-8"
+    title = title
   body
-    test
