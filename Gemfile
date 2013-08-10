@@ -7,6 +7,8 @@ gem 'dm-core'
 gem 'dm-timestamps'
 gem 'dm-migrations'
 
+gem 'slim'
+
 group :test do
   gem 'rspec'
   gem 'rack-test'

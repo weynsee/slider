@@ -8,8 +8,7 @@ describe 'Slider' do
     last_response.should be_redirect
     slide = Slide.first(path: path)
     expect(slide).not_to be_nil
-    permalink = Bijective.encode(slide.id)
-    expect(last_response.location).to include(permalink)
+    expect(last_response.location).to include(slide.permalink)
   end
 
   it 'does not create a new record when the path already exists' do
@@ -21,8 +20,7 @@ describe 'Slider' do
 
   it 'renders the appropriate slide' do
     slide = Slide.create(path: path)
-    permalink = Bijective.encode slide.id
-    get "/p/#{permalink}"
+    get "/p/#{slide.permalink}"
     expect(last_response).to be_ok
   end
 
