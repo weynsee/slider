@@ -32,6 +32,7 @@ DataMapper.finalize.auto_upgrade!
 get '/p/:permalink' do
   slide = Slide.find_by_permalink(params[:permalink])
   @panels = slide.panels
+  @title = @panels.join(' ')
   slim :show
 end
 
@@ -41,12 +42,6 @@ get '*' do
   redirect to("/p/#{slide.permalink}")
 end
 
-helpers do
-  def title
-    @panels.join(' ')
-  end
-end
-
 __END__
 
 @@ show
@@ -54,5 +49,22 @@ doctype html
 html lang="en"
   head
     meta charset="utf-8"
-    title = title
+    title = @title
+    meta name="apple-mobile-web-app-capable" content="yes"
+		meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"
+		meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/2.4.0/css/reveal.min.css"
+    link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/2.4.0/css/theme/simple.css"
+    /[if lt IE 9]
+      script src="http://cdn.jsdelivr.net/reveal.js/2.4.0/lib/js/html5shiv.js"
+
   body
+    div.reveal
+      div.slides
+        - for panel in @panels
+          section
+            h1 = panel
+    script src="//cdn.jsdelivr.net/reveal.js/2.4.0/lib/js/head.min.js"
+    script src="http:////cdn.jsdelivr.net/reveal.js/2.4.0/js/reveal.min.js"
+    javascript:
+      Reveal.initialize();
