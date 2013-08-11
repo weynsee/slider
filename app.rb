@@ -63,8 +63,9 @@ html lang="en"
       div.slides
         - for panel in @panels
           section
-            h1 = panel
+            h1
+              strong = panel
     script src="//cdn.jsdelivr.net/reveal.js/2.4.0/lib/js/head.min.js"
     script src="http:////cdn.jsdelivr.net/reveal.js/2.4.0/js/reveal.min.js"
     javascript:
-      Reveal.initialize();
+      Reveal.initialize({ progress: false, transition: 'linear' });
