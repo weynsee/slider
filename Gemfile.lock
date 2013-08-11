@@ -20,6 +20,8 @@ GEM
     do_sqlite3 (0.10.13)
       data_objects (= 0.10.13)
     pg (0.16.0)
+    puma (2.5.0)
+      rack (>= 1.1, < 2.0)
     rack (1.5.2)
     rack-protection (1.5.0)
       rack
@@ -53,6 +55,7 @@ DEPENDENCIES
   dm-sqlite-adapter
   dm-timestamps
   pg
+  puma
   rack-test
   rspec
   sinatra
