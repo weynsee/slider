@@ -18,3 +18,5 @@ group :development, :test do
   gem 'dm-sqlite-adapter'
   gem 'sqlite3'
 end
+
+gem 'pg', group: :production
