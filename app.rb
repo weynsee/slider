@@ -8,7 +8,7 @@ Bundler.require(:default, env)
 
 enable :inline_templates
 
-DataMapper.setup(:default, "sqlite3::memory:")
+DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3::memory:")
 class Slide
   include DataMapper::Resource
   property  :id,          Serial
