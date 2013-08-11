@@ -36,7 +36,7 @@ def four_oh_four
 end
 
 get '/p/:permalink' do
-  slide = Slide.find_by_permalink(params[:permalink]) if params[:permalink] =~ /\A[a-zA-Z]+\Z/
+  slide = Slide.find_by_permalink(params[:permalink]) if params[:permalink] =~ /\A[a-zA-Z0-9]+\Z/
   if slide
     @panels = slide.panels
     @title = @panels.join(' ')
