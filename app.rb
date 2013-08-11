@@ -29,17 +29,31 @@ class Slide
 end
 DataMapper.finalize.auto_upgrade!
 
-get '/p/:permalink' do
-  slide = Slide.find_by_permalink(params[:permalink])
-  @panels = slide.panels
-  @title = @panels.join(' ')
+def four_oh_four
+  status 404
+  @panels, @title = ['404'], "404"
   slim :show
+end
+
+get '/p/:permalink' do
+  slide = Slide.find_by_permalink(params[:permalink]) if params[:permalink] =~ /\A[a-zA-Z]+\Z/
+  if slide
+    @panels = slide.panels
+    @title = @panels.join(' ')
+    slim :show
+  else
+    four_oh_four
+  end
 end
 
 get '*' do
   path = params[:splat].first
-  slide = Slide.first_or_create(path: path)
-  redirect to("/p/#{slide.permalink}")
+  if path == '/' || path.strip == ''
+    four_oh_four
+  else
+    slide = Slide.first_or_create(path: path)
+    redirect to("/p/#{slide.permalink}")
+  end
 end
 
 __END__

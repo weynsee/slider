@@ -18,6 +18,18 @@ describe 'Slider' do
       get path
       expect(Slide.count).to eq(total_records)
     end
+
+    describe 'empty path' do
+      it 'returns 404 for /' do
+        get '/'
+        last_response.should be_not_found
+      end
+
+      it 'returns 404 for root' do
+        get ''
+        last_response.should be_not_found
+      end
+    end
   end
 
   describe 'GET /p/:permalink' do
@@ -26,6 +38,16 @@ describe 'Slider' do
 
     it { should be_ok }
     its(:body) { should include('<title>hello world</title>') }
+
+    describe 'permalink does not exist' do
+      subject { get '/p/404' }
+      it { should be_not_found }
+    end
+
+    describe 'permalink is invalid' do
+      subject { get '/p/four-oh-four' }
+      it { should be_not_found }
+    end
   end
 
   after { Slide.destroy }
