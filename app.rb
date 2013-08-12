@@ -20,7 +20,7 @@ class Slide
   end
 
   def self.find_by_permalink(permalink)
-    get(Bijective.decode(permalink))
+    get(Bijective.decode(permalink)) if permalink =~ /\A[a-zA-Z0-9]+\Z/
   end
 
   def panels
@@ -36,7 +36,7 @@ def four_oh_four
 end
 
 get '/p/:permalink' do
-  slide = Slide.find_by_permalink(params[:permalink]) if params[:permalink] =~ /\A[a-zA-Z0-9]+\Z/
+  slide = Slide.find_by_permalink(params[:permalink])
   if slide
     @panels = slide.panels
     @title = @panels.join(' ')

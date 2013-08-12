@@ -14,6 +14,10 @@ describe 'Slide' do
       returned_slide = Slide.find_by_permalink(slide.permalink)
       expect(returned_slide).to eq(slide)
     end
+
+    it 'returns nil for invalid permalink' do
+      expect(Slide.find_by_permalink('w-t')).to be_nil
+    end
   end
 
   describe '#panels' do
